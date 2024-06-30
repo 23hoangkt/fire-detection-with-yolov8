@@ -1,0 +1,2 @@
+# chạy 
+"python main.py"
