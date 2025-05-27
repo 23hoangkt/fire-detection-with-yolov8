@@ -1,34 +1,35 @@
 # Fire Detection with YOLOv8
 
-## Mô tả
-Dự án **Fire Detection with YOLOv8** triển khai hệ thống phát hiện đám cháy sử dụng mô hình YOLOv8 từ Ultralytics. Hệ thống tích hợp camera IP qua giao thức **RTSP** để giám sát thời gian thực và gửi tin nhắn SMS cảnh báo khi phát hiện đám cháy thông qua [Android SMS Gateway](https://github.com/capcom6/android-sms-gateway). Dự án phù hợp cho các ứng dụng như giám sát an toàn, theo dõi cháy rừng, hoặc hệ thống cảnh báo cháy tự động.
+## Description
+The **Fire Detection with YOLOv8** project implements a fire detection system using the YOLOv8 model from Ultralytics. The system integrates IP cameras via the **RTSP** protocol for real-time monitoring and sends SMS alerts when a fire is detected through the [Android SMS Gateway](https://github.com/capcom6/android-sms-gateway). The project is suitable for applications such as safety monitoring, wildfire tracking, or automated fire alert systems.
 
 ![SYSTEM](image.png)
-## Tính năng
-- Suy luận trên ảnh, video, webcam, hoặc luồng RTSP từ camera IP để phát hiện đám cháy.
-- Hiển thị kết quả với khung bao quanh vùng cháy.
-- Tích hợp camera IP sử dụng giao thức RTSP để giám sát thời gian thực.
-- Gửi tin nhắn SMS cảnh báo khi phát hiện đám cháy qua [Android SMS Gateway](https://github.com/capcom6/android-sms-gateway).
-- Hỗ trợ tùy chỉnh để cải thiện hiệu suất trên các nguồn dữ liệu khác nhau.
 
-## Yêu cầu
+## Features
+- Inference on images, videos, webcams, or RTSP streams from IP cameras to detect fires.
+- Display results with bounding boxes around detected fire regions.
+- Integration with IP cameras using the RTSP protocol for real-time monitoring.
+- Sending SMS alerts when a fire is detected via [Android SMS Gateway](https://github.com/capcom6/android-sms-gateway).
+- Support for customization to improve performance on different data sources.
+
+## Requirements
 - Python 3.8+
-- Thư viện Ultralytics YOLOv8
-- OpenCV (`opencv-python`) để xử lý luồng RTSP và webcam
+- Ultralytics YOLOv8 library
+- OpenCV (`opencv-python`) for processing RTSP streams and webcams
 - NumPy
-- Thư viện `requests` để giao tiếp với Android SMS Gateway
-- Thiết bị Android với ứng dụng **Android SMS Gateway** được cài đặt và cấu hình
-- Camera IP hỗ trợ giao thức RTSP
+- `requests` library for communication with Android SMS Gateway
+- Android device with the **Android SMS Gateway** application installed and configured
+- IP camera supporting the RTSP protocol
 
-## Cài đặt
-1. **Tải kho lưu trữ**:
+## Installation
+1. **Clone the repository**:
    ```bash
    git clone https://github.com/23hoangkt/fire-detection-with-yolov8.git
    cd fire-detection-with-yolov8
    ```
 
-2. **Cài đặt môi trường**:
-   Tạo môi trường ảo và cài đặt các thư viện cần thiết:
+2. **Set up the environment**:
+   Create a virtual environment and install required libraries:
    ```bash
    python -m venv venv
    source venv/bin/activate  # Linux/MacOS
@@ -36,60 +37,58 @@ Dự án **Fire Detection with YOLOv8** triển khai hệ thống phát hiện �
    pip install -r requirements.txt
    ```
 
-3. **Cấu hình camera IP (RTSP)**:
-   - Lấy URL RTSP từ camera IP (thường có dạng: `rtsp://username:password@ip_address:port/stream`).
-   - Cập nhật URL RTSP trong tệp `config.yaml` hoặc trực tiếp trong mã (ví dụ: `fire_detect.py` hoặc `sms.py`).
-   - Đảm bảo camera IP và hệ thống chạy trên cùng mạng hoặc cấu hình mạng phù hợp (ví dụ: mở cổng 554 cho RTSP).
-   - Kiểm tra kết nối RTSP bằng công cụ như VLC hoặc lệnh:
+3. **Configure IP camera (RTSP)**:
+   - Obtain the RTSP URL from the IP camera (typically in the format: `rtsp://username:password@ip_address:port/stream`).
+   - Update the RTSP URL in the `config.yaml` file or directly in the code (e.g., `fire_detect.py` or `sms.py`).
+   - Ensure the IP camera and the system are on the same network or configure the network appropriately (e.g., open port 554 for RTSP).
+   - Test the RTSP connection using a tool like VLC or the command:
      ```bash
      python rtsp.py
      ```
 
-4. **Cấu hình Android SMS Gateway**:
-   - Tải và cài đặt ứng dụng Android SMS Gateway từ [kho lưu trữ](https://github.com/capcom6/android-sms-gateway).
-   - Chạy ứng dụng trên thiết bị Android và ghi chú URL API (mặc định: `http://<device-ip>:8080`).
-   - Cập nhật thông tin API (URL, số điện thoại nhận cảnh báo) trong tệp `config.yaml` hoặc trực tiếp trong mã (ví dụ: `sms.py`).
-   - Đảm bảo thiết bị Android kết nối cùng mạng với hệ thống.
+4. **Configure Android SMS Gateway**:
+   - Download and install the Android SMS Gateway application from the [repository](https://github.com/capcom6/android-sms-gateway).
+   - Run the application on the Android device and note the API URL (default: `http://<device-ip>:8080`).
+   - Update the API information (URL, recipient phone number) in the `config.yaml` file or directly in the code (e.g., `sms.py`).
+   - Ensure the Android device is connected to the same network as the system.
 
-## Hướng dẫn sử dụng
-### 1. Phát hiện trên ảnh/video/luồng RTSP/webcam
-Phát hiện đám cháy trên ảnh, video, webcam, hoặc luồng RTSP từ camera IP:
-- **Trên ảnh**:
+## Usage
+### 1. Detection on images/videos/RTSP streams/webcams
+Detect fires on images, videos, webcams, or RTSP streams from IP cameras:
+- **On images**:
   ```bash
   python valid.py 
   ```
-- **Trên video hoặc webcam**:
+- **On videos or webcams**:
   ```bash
   python fire_detect.py 
   ```
-  
-- **Trên camera IP (RTSP)**:
+- **On IP cameras (RTSP)**:
   ```bash
   python main.py 
   ```
 
-### 2. Gửi cảnh báo SMS
-Khi phát hiện đám cháy, hệ thống tự động gửi tin nhắn SMS qua Android SMS Gateway:
-- Chạy hệ thống tích hợp camera IP và gửi SMS:
+### 2. Sending SMS Alerts
+When a fire is detected, the system automatically sends an SMS via Android SMS Gateway:
+- Run the system with IP camera integration and SMS alerts:
   ```bash
   python sms.py 
   ```
-- Đảm bảo ứng dụng Android SMS Gateway đang chạy và URL API được cấu hình đúng trong  `sms.py`.
+- Ensure the Android SMS Gateway application is running and the API URL is correctly configured in `sms.py`.
 
+### 3. Results
+- Inference results are saved in the `runs/detect/exp/` directory with bounding boxes around detected fire regions.
 
-### 3. Kết quả
-- Kết quả suy luận được lưu trong thư mục `runs/detect/exp/` với khung bao quanh vùng cháy.
+## Contribution
+We welcome all contributions! To contribute:
+1. Fork the repository.
+2. Create a new branch: `git checkout -b feature/feature-name`.
+3. Commit changes: `git commit -m 'Add feature XYZ'`.
+4. Push to the branch: `git push origin feature/feature-name`.
+5. Create a Pull Request.
 
-## Đóng góp
-Chúng tôi hoan nghênh mọi đóng góp! Để đóng góp:
-1. Fork kho lưu trữ.
-2. Tạo nhánh mới: `git checkout -b feature/ten-tinh-nang`.
-3. Commit thay đổi: `git commit -m 'Thêm tính năng XYZ'`.
-4. Push lên nhánh: `git push origin feature/ten-tinh-nang`.
-5. Tạo Pull Request.
+## Contact
+If you have questions or need support, please open an issue on GitHub or contact via email: [hoangkimtruong2003@gmail.com].
 
-## Liên hệ
-Nếu bạn có câu hỏi hoặc cần hỗ trợ, hãy mở issue trên GitHub hoặc liên hệ qua email: [hoangkimtruong2003@gmail.com].
-
-## Giấy phép
-Dự án được cấp phép theo [MIT License](LICENSE).
+## License
+The project is licensed under the [MIT License](LICENSE).
