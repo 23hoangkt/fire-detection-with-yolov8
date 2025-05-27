@@ -88,5 +88,3 @@ We welcome all contributions! To contribute:
 ## Contact
 If you have questions or need support, please open an issue on GitHub or contact via email: [hoangkimtruong2003@gmail.com].
 
-## License
-The project is licensed under the [MIT License](LICENSE).
