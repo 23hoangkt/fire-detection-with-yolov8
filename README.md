@@ -3,6 +3,7 @@
 ## Mô tả
 Dự án **Fire Detection with YOLOv8** triển khai hệ thống phát hiện đám cháy sử dụng mô hình YOLOv8 từ Ultralytics. Hệ thống tích hợp camera IP qua giao thức **RTSP** để giám sát thời gian thực và gửi tin nhắn SMS cảnh báo khi phát hiện đám cháy thông qua [Android SMS Gateway](https://github.com/capcom6/android-sms-gateway). Dự án phù hợp cho các ứng dụng như giám sát an toàn, theo dõi cháy rừng, hoặc hệ thống cảnh báo cháy tự động.
 
+![SYSTEM](image.png)
 ## Tính năng
 - Suy luận trên ảnh, video, webcam, hoặc luồng RTSP từ camera IP để phát hiện đám cháy.
 - Hiển thị kết quả với khung bao quanh vùng cháy.
