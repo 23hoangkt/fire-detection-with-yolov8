@@ -34,7 +34,6 @@ The **Fire Detection with YOLOv8** project implements a fire detection system us
    python -m venv venv
    source venv/bin/activate  # Linux/MacOS
    venv\Scripts\activate      # Windows
-   pip install -r requirements.txt
    ```
 
 3. **Configure IP camera (RTSP)**:
@@ -77,8 +76,7 @@ When a fire is detected, the system automatically sends an SMS via Android SMS G
 - Ensure the Android SMS Gateway application is running and the API URL is correctly configured in `sms.py`.
 
 ### 3. Results
-- Inference results are saved in the `runs/detect/exp/` directory with bounding boxes around detected fire regions.
-
+![SYSTEM](result.png)
 ## Contribution
 We welcome all contributions! To contribute:
 1. Fork the repository.
